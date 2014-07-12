@@ -1,0 +1,45 @@
+<a id="example"><div class="inner"></div></a>
+<style>
+#example {
+  display: block;
+  position: relative;
+  width: 300px;
+  height: 80px;
+  margin: 80px;
+  background-color: #E0EFF1;
+}
+
+#example .inner {
+  cursor: pointer;
+  position: absolute;
+  background-color: #7DB4B5;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 80px;
+  transition: all 0.1s;
+}
+
+#example:active .inner {
+  left: 0 !important;
+  top: 0 !important;
+}
+</style>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+var lastX, lastY;
+$('#example').hover(function (e) {
+  lastX = e.pageX;
+  lastY = e.pageY;
+},function () {
+  $(this).find('.inner').css({left: 0, top: 0});
+});
+
+$('#example').mousemove(function (e) {
+  var diffX = Math.max(Math.min(e.pageX - lastX, 30), -30);
+  var diffY = Math.max(Math.min(e.pageY - lastY, 30), -30);
+  var pos = $(this).offset();
+  var $inner = $(this).find('.inner');
+  $inner.offset({top: pos.top + diffY * 0.2, left: pos.left + diffX * 0.2});
+});
+</script>
